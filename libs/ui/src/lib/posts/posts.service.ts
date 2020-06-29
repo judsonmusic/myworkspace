@@ -1,14 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class PostsService {
-  constructor(private http: HttpClient) {}
+export const POSTS_SERVICE = new InjectionToken<AbstractPostsService>(
+  'POSTS_SERVICE'
+);
 
-  getAll() {
-    // returns an obserable by default.
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
-  }
+export abstract class AbstractPostsService {
+  abstract getAll(): Observable<any>;
 }
