@@ -19,12 +19,11 @@
     }
   },
   "projects": {
-    "ngrx": {
+    "myionic": {
       "tags": []
     },
-    "ngrx-e2e": {
-      "tags": [],
-      "implicitDependencies": ["ngrx"]
+    "ui": {
+      "tags": []
     }
   }
 }

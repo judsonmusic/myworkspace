@@ -1,36 +1,54 @@
 {
   "version": 1,
   "projects": {
-    "ngrx": {
+    "myionic": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/ngrx",
-      "sourceRoot": "apps/ngrx/src",
+      "root": "apps/myionic",
+      "sourceRoot": "apps/myionic/src",
       "prefix": "myworkspace",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/ngrx",
-            "index": "apps/ngrx/src/index.html",
-            "main": "apps/ngrx/src/main.ts",
-            "polyfills": "apps/ngrx/src/polyfills.ts",
-            "tsConfig": "apps/ngrx/tsconfig.app.json",
+            "outputPath": "dist/apps/myionic",
+            "index": "apps/myionic/src/index.html",
+            "main": "apps/myionic/src/main.ts",
+            "polyfills": "apps/myionic/src/polyfills.ts",
+            "tsConfig": "apps/myionic/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/ngrx/src/favicon.ico", "apps/ngrx/src/assets"],
-            "styles": ["apps/ngrx/src/styles.scss"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "apps/myionic/src/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
+            ],
+            "styles": [
+              {
+                "input": "apps/myionic/src/theme/variables.scss"
+              },
+              {
+                "input": "apps/myionic/src/global.scss"
+              }
+            ],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/ngrx/src/environments/environment.ts",
-                  "with": "apps/ngrx/src/environments/environment.prod.ts"
+                  "replace": "apps/myionic/src/environments/environment.ts",
+                  "with": "apps/myionic/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -59,65 +77,70 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngrx:build"
+            "browserTarget": "myionic:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngrx:build:production"
+              "browserTarget": "myionic:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngrx:build"
+            "browserTarget": "myionic:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/ngrx/tsconfig.app.json",
-              "apps/ngrx/tsconfig.spec.json"
+              "apps/myionic/tsconfig.app.json",
+              "apps/myionic/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/ngrx/**/*"]
+            "exclude": ["**/node_modules/**", "!apps/myionic/**/*"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/ngrx/jest.config.js",
-            "tsConfig": "apps/ngrx/tsconfig.spec.json",
+            "jestConfig": "apps/myionic/jest.config.js",
+            "tsConfig": "apps/myionic/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/ngrx/src/test-setup.ts"
+            "setupFile": "apps/myionic/src/test-setup.ts"
           }
         }
       }
     },
-    "ngrx-e2e": {
-      "root": "apps/ngrx-e2e",
-      "sourceRoot": "apps/ngrx-e2e/src",
-      "projectType": "application",
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "myworkspace",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/ngrx-e2e/cypress.json",
-            "tsConfig": "apps/ngrx-e2e/tsconfig.e2e.json",
-            "devServerTarget": "ngrx:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngrx:serve:production"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/ngrx-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/ngrx-e2e/**/*"]
+            "tsConfig": [
+              "libs/ui/tsconfig.lib.json",
+              "libs/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/**/*"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "tsConfig": "libs/ui/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
         }
       }
     }
@@ -134,5 +157,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "ngrx"
+  "defaultProject": "myionic"
 }
