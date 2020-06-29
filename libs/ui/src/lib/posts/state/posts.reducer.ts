@@ -13,6 +13,6 @@ const initialState: PostsState = {
 
 export const rootReducer = createReducer(
   initialState,
-  on(ApiError, (state, action) => ({ error: action.error, data: null })),
+  on(ApiError, (state, action) => ({ error: action.error, data: state.data })),
   on(ApiSuccess, (state, action) => ({ data: action.data, error: null }))
 );
