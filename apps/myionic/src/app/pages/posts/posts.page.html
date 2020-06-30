@@ -3,10 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ folder }}</ion-title>
+    <ion-title>Posts</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <myworkspace-posts></myworkspace-posts>
+  <h3>The following posts will load below...</h3>
+  <myworkspace-posts [data$]="data$ | async"></myworkspace-posts>
 </ion-content>

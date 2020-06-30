@@ -1,15 +1,17 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { AbstractPostsService, POSTS_SERVICE } from '../posts.service';
+import { PostsService } from 'src/app/posts.service';
+// import { AbstractPostsService, POSTS_SERVICE } from '../posts.service';
 import * as ACTIONS from './posts.actions';
 
 @Injectable()
 export class PostsEffects {
   constructor(
     private actions$: Actions,
-    @Inject(POSTS_SERVICE) private postsService: AbstractPostsService
+    //  @Inject(POSTS_SERVICE) private postsService: AbstractPostsService,
+    private postsService: PostsService
   ) {}
 
   // effect from simulating an API call success

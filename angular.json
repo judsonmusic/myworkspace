@@ -3,14 +3,10 @@
   "projects": {
     "myionic": {
       "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "apps/myionic",
       "sourceRoot": "apps/myionic/src",
-      "prefix": "myworkspace",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -138,15 +134,38 @@
           }
         }
       },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
+      "schematics": {}
+    },
+    "data": {
+      "root": "libs/data",
+      "sourceRoot": "libs/data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data/tsconfig.lib.json",
+              "libs/data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/data/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data/jest.config.js",
+            "tsConfig": "libs/data/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@ionic/angular-toolkit",
+    "analytics": "7e791dd7-8d65-4117-85bc-cbc23511e9cc"
   },
   "schematics": {
     "@nrwl/angular:application": {
@@ -155,6 +174,23 @@
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
+    },
+    "@schematics/angular": {
+      "component": {
+        "skipTests": true,
+        "style": "scss"
+      },
+      "service": {
+        "skipTests": true
+      }
+    },
+    "@ionic/angular-toolkit:component": {
+      "spec": false,
+      "styleext": "scss"
+    },
+    "@ionic/angular-toolkit:page": {
+      "spec": false,
+      "styleext": "scss"
     }
   },
   "defaultProject": "myionic"

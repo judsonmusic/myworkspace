@@ -1,31 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiGetMockData } from './state/posts.actions';
-import { PostsState } from './state/posts.reducer';
-import { getStateError, getStateSelectedData } from './state/posts.selectors';
 
 @Component({
   selector: 'myworkspace-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent implements OnInit {
-  error$: Observable<string>;
-  data$: Observable<string>;
-  JSON = JSON;
+export class PostsComponent implements OnInit, OnChanges {
+  @Input() data$: Observable<string>;
 
-  constructor(private store: Store<{ postsState: PostsState }>) {
-    this.error$ = this.store.select(getStateError);
-    this.data$ = this.store.select(getStateSelectedData);
-  }
-
-  ngOnInit() {
-    // this.getApiData();
-  }
-
-  getApiData() {
-    // dispatches the ApiGetMocklData event.
-    this.store.dispatch(ApiGetMockData({ id: 'randomId' }));
+  constructor() {}
+  ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('These are the changes:', changes);
   }
 }
