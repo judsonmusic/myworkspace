@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -12,12 +6,8 @@ import { Observable } from 'rxjs';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent implements OnInit, OnChanges {
+export class PostsComponent {
   @Input() data$: Observable<string>;
 
   constructor() {}
-  ngOnInit() {}
-  ngOnChanges(changes: SimpleChanges) {
-    console.log('These are the changes:', changes);
-  }
 }
